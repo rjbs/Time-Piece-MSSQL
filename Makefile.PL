@@ -7,6 +7,7 @@ WriteMakefile(
     AUTHOR              => 'Ricardo Signes <rjbs@cpan.org>',
     VERSION_FROM        => 'lib/Time/Piece/MSSQL.pm',
     ABSTRACT_FROM       => 'lib/Time/Piece/MSSQL.pm',
+    LICENSE             => 'perl',
     PL_FILES            => {},
     PREREQ_PM => {
         'Time::Piece' => 0,
