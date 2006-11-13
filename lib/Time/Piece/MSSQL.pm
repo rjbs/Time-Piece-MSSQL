@@ -1,11 +1,14 @@
-package Time::Piece::MSSQL;
-
-use Time::Piece;
 use warnings;
 use strict;
 
+package Time::Piece::MSSQL;
+use Time::Piece;
+
 # stolen from timepiece-mysql 
-sub import { shift; unshift @_, 'Time::Piece'; goto &Time::Piece::import }
+sub import {
+  splice @_, 0, 1, 'Time::Piece';
+  goto &Time::Piece::import
+}
 
 =head1 NAME
 
@@ -13,13 +16,13 @@ Time::Piece::MSSQL - MSSQL-specific methods for Time::Piece
 
 =head1 VERSION
 
-version 0.01
+version 0.020
 
  $Id: MSSQL.pm,v 1.2 2004/10/26 16:55:53 rjbs Exp $
 
 =cut
 
-$Time::Piece::MSSQL::VERSION = '0.01';
+our $VERSION = '0.020';
 
 =head1 SYNOPSIS
 
@@ -42,8 +45,6 @@ will produce and parse MSSQL's default-format datetime values.
 =head1 METHODS
 
 =cut
-
-package Time::Piece;
 
 =head2 C<< Time::Piece->mssql_datetime >>
 
@@ -86,6 +87,16 @@ sub from_mssql_smalldatetime {
 	my $time = eval { $class->strptime($timestring, '%Y-%m-%d %H:%M:%S') };
 }
 
+BEGIN {
+  for (qw(
+    mssql_datetime mssql_smalldatetime
+    from_mssql_datetime from_mssql_smalldatetime
+  )) {
+    no strict 'refs'; ## no critic ProhibitNoStrict
+    *{"Time::Piece::$_"} = __PACKAGE__->can($_);
+  }
+}
+
 =head1 FINAL THOUGHTS
 
 This module saves less time than L<Time::Piece::MySQL>, because there are fewer
@@ -105,7 +116,7 @@ notified of progress on your bug as I make changes.
 
 =head1 COPYRIGHT
 
-Copyright 2004 Ricardo Signes, All Rights Reserved.
+Copyright 2004-2006 Ricardo SIGNES, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
