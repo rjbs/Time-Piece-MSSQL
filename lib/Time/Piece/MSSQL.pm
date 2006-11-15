@@ -18,7 +18,7 @@ Time::Piece::MSSQL - MSSQL-specific methods for Time::Piece
 
 version 0.020
 
- $Id: MSSQL.pm,v 1.2 2004/10/26 16:55:53 rjbs Exp $
+ $Id$
 
 =cut
 
