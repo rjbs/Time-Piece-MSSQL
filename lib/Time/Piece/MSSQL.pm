@@ -1,28 +1,14 @@
-use warnings;
 use strict;
-
+use warnings;
 package Time::Piece::MSSQL;
 use Time::Piece;
+# ABSTRACT: MSSQL-specific methods for Time::Piece
 
 # stolen from timepiece-mysql 
 sub import {
   splice @_, 0, 1, 'Time::Piece';
   goto &Time::Piece::import
 }
-
-=head1 NAME
-
-Time::Piece::MSSQL - MSSQL-specific methods for Time::Piece
-
-=head1 VERSION
-
-version 0.020
-
- $Id$
-
-=cut
-
-our $VERSION = '0.020';
 
 =head1 SYNOPSIS
 
@@ -42,13 +28,9 @@ This module adds functionality to L<Time::Piece>, providing methods useful for
 using the object in conjunction with a Microsoft SQL database connection.  It
 will produce and parse MSSQL's default-format datetime values.
 
-=head1 METHODS
+=method mssql_datetime
 
-=cut
-
-=head2 C<< Time::Piece->mssql_datetime >>
-
-=head2 C<< Time::Piece->mssql_smalldatetime >>
+=method mssql_smalldatetime
 
 These methods return the Time::Piece object, formatted in the default notation
 for the correct MSSQL datatype.
@@ -65,9 +47,13 @@ sub mssql_smalldatetime {
 	$self->strftime('%Y-%m-%d %H:%M:%S');
 }
 
-=head2 C<< Time::Piece->from_mssql_datetime($timestring) >>
+=method from_mssql_datetime
 
-=head2 C<< Time::Piece->from_mssql_smalldatetime($timestring) >>
+  my $time = Time::Piece->from_mssql_datetime($timestring);
+
+=method from_mssql_smalldatetime
+
+  my $time = Time::Piece->from_mssql_smalldatetime($timestring);
 
 These methods construct new Time::Piece objects from the given strings, which
 must be in the default MSSQL format for the correct datatype.  If the string is
@@ -102,24 +88,6 @@ BEGIN {
 This module saves less time than L<Time::Piece::MySQL>, because there are fewer
 strange quirks to account for, but it becomes useful when tied to autoinflation
 of datatypes in Class::DBI::MSSQL.
-
-=head1 AUTHOR
-
-Ricardo Signes, C<< <rjbs@cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to
-C<bug-time-piece-mssql@rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org>.  I will be notified, and then you'll automatically be
-notified of progress on your bug as I make changes.
-
-=head1 COPYRIGHT
-
-Copyright 2004-2006 Ricardo SIGNES, All Rights Reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
 
 =cut
 
