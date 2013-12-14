@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Time::Piece::MSSQL;
-use Time::Piece;
+use Time::Piece 1.17;
 # ABSTRACT: MSSQL-specific methods for Time::Piece
 
 # stolen from timepiece-mysql 
