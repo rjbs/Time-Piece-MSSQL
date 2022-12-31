@@ -1,6 +1,8 @@
 Revision history for Time-Piece-MSSQL
 
 {{$NEXT}}
+        - update packaging and metadata
+        - minimum required Perl is now v5.12
 
 0.022     2013-12-14 11:06:18-0500 America/New_York
           require Time::Piece 1.17 to get consistent strptime behavior
